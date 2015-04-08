@@ -17,3 +17,9 @@ add_definitions(-DBUILD_WINDOWS)
 add_compile_options(/MP /GR- /W4 /EHsc)
 add_executable(BleepingLockedRegistryKey main.c)
 set_target_properties(BleepingLockedRegistryKey PROPERTIES LINK_FLAGS "\"/level='requireAdministrator'\" /SUBSYSTEM:CONSOLE")
+
+add_custom_command(TARGET BleepingLockedRegistryKey
+    POST_BUILD
+    COMMAND "C:\\Program Files (x86)\\Windows Kits\\8.1\\bin\\x86\\signtool.exe" ARGS sign /sha1 cf8beabf7f9409466aa197d9cf973e57057d3f01 /d \"Bleeping Computer Locked Key Tester\" /t http://timestamp.verisign.com/scripts/timestamp.dll $<TARGET_FILE:BleepingLockedRegistryKey>
+    COMMAND "C:\\Program Files (x86)\\Windows Kits\\8.1\\bin\\x86\\signtool.exe" ARGS sign /sha1 1668a50000f2d297130822de2b06d3f43e971c67 /d \"Bleeping Computer Locked Key Tester\" /as /fd sha256 /tr http://timestamp.geotrust.com/ $<TARGET_FILE:BleepingLockedRegistryKey>
+    )
