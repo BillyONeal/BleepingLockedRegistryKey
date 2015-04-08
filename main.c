@@ -92,7 +92,7 @@ HRESULT CreateTestRegistryKey(wchar_t const* securityDescriptor)
         0,
         NULL,
         0,
-        KEY_READ,
+        KEY_READ | KEY_WOW64_64KEY,
         0,
         &hOuterKey,
         NULL
@@ -111,7 +111,7 @@ HRESULT CreateTestRegistryKey(wchar_t const* securityDescriptor)
         0,
         NULL,
         0,
-        KEY_READ | WRITE_DAC,
+        KEY_READ | WRITE_DAC | KEY_WOW64_64KEY,
         &sa,
         &hKey,
         &disposition
